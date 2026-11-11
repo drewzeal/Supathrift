@@ -663,7 +663,17 @@ function getFilteredProducts(){let q=($("searchInput").value||$("mobileSearchInp
 function renderProducts(){let arr=getFilteredProducts();$("resultCount").textContent=arr.length+" items";let shown=arr.slice(0,visibleCount);$("productGrid").innerHTML=shown.length?shown.map(p=>`<article class="product-card">
  <div class="product-photo"><img src="${photo(p.img,600)}" alt="${p.name}" loading="lazy"><span class="tag">${p.tag}</span><button class="heart" aria-label="Save ${p.name}" data-heart="${p.id}">♡</button></div>
  <div class="product-info"><div class="product-category">${p.cat}</div><h3>${p.name}</h3><div class="price-line"><span class="price">${money(p.price)}</span><span class="old-price">${money(p.old)}</span></div><div class="condition">${p.condition}</div><div class="wholesale"><span>Bulk price</span><strong>${p.wholesale}</strong></div>
- <div class="buy-row"><button class="add-btn" data-add="${p.id}">＋ Add to bag</button><button class="buy-btn" data-buy="${p.id}">Buy now</button></div><div class="payment-note"article>`).join(""):`<div class="empty-state"><h3>No finds just yet</h3><p>Try another search or category.</p></div>`;$("loadMore").style.display=arr.length>visibleCount?"inline-block":"none";syncChips()}
+
+
+<div class="buy-row">
+  <button class="add-btn" data-add="${p.id}">
+    + Add to bag
+  </button>
+  <button class="buy-btn" data-buy="${p.id}">
+    Buy now
+  </button>
+</div>
+</article>`).join("");`<div class="empty-state"><h3>No finds just yet</h3><p>Try another search or category.</p></div>`;$("loadMore").style.display=arr.length>visibleCount?"inline-block":"none";syncChips()}
 function syncChips(){document.querySelectorAll("[data-category].chip").forEach(b=>b.classList.toggle("active",b.dataset.category===activeCategory))}
 function setCategory(cat){activeCategory=cat;visibleCount=20;renderProducts();$("shop").scrollIntoView({behavior:"smooth",block:"start"});$("menuPanel").classList.remove("open")}
 function addToCart(id){let p=products.find(x=>x.id===id);if(!p)return;if(cart[id])cart[id].qty++;else cart[id]={...p,qty:1};renderCart();showToast(p.name+" added to your bag")}
