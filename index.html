@@ -673,7 +673,8 @@ function renderProducts(){let arr=getFilteredProducts();$("resultCount").textCon
     Buy now
   </button>
 </div>
-</article>`).join("");`<div class="empty-state"><h3>No finds just yet</h3><p>Try another search or category.</p></div>`;$("loadMore").style.display=arr.length>visibleCount?"inline-block":"none";syncChips()}
+</div></div></article>`).join("");
+<div class="empty-state"><h3>No finds just yet</h3><p>Try another search or category.</p></div>`;$("loadMore").style.display=arr.length>visibleCount?"inline-block":"none";syncChips()}
 function syncChips(){document.querySelectorAll("[data-category].chip").forEach(b=>b.classList.toggle("active",b.dataset.category===activeCategory))}
 function setCategory(cat){activeCategory=cat;visibleCount=20;renderProducts();$("shop").scrollIntoView({behavior:"smooth",block:"start"});$("menuPanel").classList.remove("open")}
 function addToCart(id){let p=products.find(x=>x.id===id);if(!p)return;if(cart[id])cart[id].qty++;else cart[id]={...p,qty:1};renderCart();showToast(p.name+" added to your bag")}
